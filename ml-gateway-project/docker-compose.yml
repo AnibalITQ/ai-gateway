@@ -1,0 +1,28 @@
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - qa-model
+      - gen-model
+      - stt-model
+
+  qa-model:
+    build: ./qa_model
+    expose:
+      - 8001
+
+  gen-model:
+    build: ./gen_model
+    expose:
+      - 8002
+
+  stt-model:
+    build: ./stt_model
+    expose:
+      - 8003
+
+networks:
+  default:
+    name: ml-gateway-network
