@@ -1,16 +1,15 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from model import TextGenerator
+from pipeline import run_generation
 
 app = FastAPI()
-model = TextGenerator()
 
 class GenerateRequest(BaseModel):
     prompt: str
 
 @app.post("/generate")
 async def generate(request: GenerateRequest):
-    return model.generate(request.prompt)
+    return run_generation(request)
 
 if __name__ == "__main__":
     import uvicorn
